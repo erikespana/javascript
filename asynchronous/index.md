@@ -1,4 +1,4 @@
-# Callbacks, promises and the async / await syntax
+# Callbacks, promises and async / await syntax
 
 ## Callbacks
 

@@ -3,6 +3,10 @@ Javascript plays a central role in web pages. The architecture of the multiple-d
 
 # javascript
 
+## Asynchronous
+
+[Callbacks, promises and async / await syntax](https://erikespana.github.io/javascript/asynchronous/)
+
 ## Output values to text box
 
 ## Working with functions

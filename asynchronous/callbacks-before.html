@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Before callbacks</title><script>
+const getDelay = 1000;
+const createDelay = 2000;
+  /*
+Call getPosts, then createPosts()
+Without callback:
+We don't see post 3 because createPost() took longer than getPosts()
+*/
+
+// Array mimicks blog posts on a server.
+const posts = [
+  { title: 'Post One', body: 'This is post one' },
+  { title: 'Post Two', body: 'This is post two' }
+];
+
+
+// Gets blog posts
+// Use setTimeout to simulate a 1 second delay.
+function getPosts() {
+  // Use set timeout to mimick fetching blog posts from server.
+  // Parameters: anonymous function, 1 second delay.
+  setTimeout( changeInnerHTML , getDelay);
+}
+
+let changeInnerHTML = function () {
+  let output = '';
+  posts.forEach((post, index) => {
+    // Append
+    output += `<li>${post.title}</li>`;
+  });
+  document.body.innerHTML = output;
+}
+
+// Creating blog posts
+// Use setTimeout to simulate a 2 second delay.
+
+function createPost(post) {
+  setTimeout(() => {
+    posts.push(post);
+  }, createDelay);
+}
+
+getPosts();
+
+createPost({ title: 'Post Three', body: 'This is post three' });  
+console.trace("Finished");
+  </script>
+</head>
+
+<body>
+
+  
+</body>
+
+</html>

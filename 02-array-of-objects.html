@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+    <!-- Element to store output. -->
+    <pre id="echo"></pre>
+
+    <script>
+    // Get <pre> element
+        var echo = document.getElementById("echo");
+
+    // Create an array of URLs
+    let sitemap = [ newUrl("consumer/health-insurance", "id57t4UqxpY",
+                        "Want to stop costly medical bills? Watch this. | Insurance 101 | Texas Department of Insurance",
+                        "Do you know the right questions to ask to keep your health care costs down? We go over the things that can lead to higher bills and explain how to avoid them.",
+                        "2019-07-10",
+                        "204") ];
+
+    sitemap.push( newUrl("takefive/renters-insurance", "mB5GFUfu5p8",
+                        "Insurance 101: Renters Insurance | Texas Department of Insurance",
+                        "Do you need renters insurance?  Your landlord’s insurance will cover damage to a building or home you rent, but what about your personal items? We explain what renters insurance covers.",
+                        "2019-03-28",
+                        "139") );
+
+    // sitemap.push( newUrl("", "dhf25GKboZo",
+    // "Insurance 101: Covered Perils | Texas Department of Insurance",
+    // "The trick to knowing what your home policy covers? Watch this perilous tale for the answer. And if you have other questions or need help with an insurance claim, call our Consumer Help Line at 1-800-252-3439.",
+    // "2018-10-23",
+    // "158") );
+
+    sitemap.push( newUrl("takefive/accident-caused-by-other-driver", "Uln7bh5nq4o",
+                        "Insurance 101: After a Wreck | Texas Department of Insurance",
+                        "Ouch! Even the smallest fender bender can be a major headache. We explain what you need to know – from gathering information at the scene to working with an adjuster – to help the process go smoothly and get you back on the road.",
+                        "2018-09-27",
+                        "203") );
+
+    sitemap.push( newUrl("takefive/replacing-your-roof", "tzbZ-3OioWg",
+    "Insurance 101: Roof Claims | Texas Department of Insurance",
+    "Your roof is your first line of defense against severe weather, and it takes a beating. We’ll go over what you need to know when buying a home insurance policy, filing a roof claim, and selecting roofing contractors.",
+    "2018-06-08",
+    "209") );
+
+    
+    
+    // Convert javascript object into XML
+    let smXML = getXML( sitemap );
+    
+    // Print to screen
+    echo.innerHTML = smXML;
+
+// Create a url object
+
+function newUrl ( path, ytId, vTitle, vDesc, vPubDate, vDuration ) {
+
+    let url = {
+        loc: `https://www.tdi.texas.gov/${path}.html`,
+        video: {
+            thumbnail_loc: `http://img.youtube.com/vi/${ytId}/maxresdefault.jpg`,
+            title: vTitle,
+            description: vDesc,
+            player_loc: `http://youtube.googleapis.com/v/${ytId}`,
+            pubDate: vPubDate,
+            duration: vDuration,
+        }
+
+    };
+    return url;
+}
+
+
+
+function getXML( sitemap ) {
+    
+    let xml = "";
+    for ( let i = 0; i < sitemap.length; i++) {
+        xml +=
+`<url>
+    <loc>${sitemap[i].loc}</loc>
+    <video:video>
+        <video:thumbnail_loc>${sitemap[i].video.thumbnail_loc}</video:thumbnail_loc>
+        <video:title>${sitemap[i].video.title}</video:title>
+        <video:player_loc>${sitemap[i].video.player_loc}</video:player_loc>
+        <video:duration>${sitemap[i].video.duration}</video:duration>
+        <video:publication_date>${sitemap[i].video.pubDate}</video:publication_date>
+        <video:live>yes</video:live>
+    </video:video>
+ </url>`;
+        /*
+        Grilling steaks for summer
+        <video:description>Alkis shows you how to get perfectly done steaks every
+            time</video:description>
+        <video:content_loc>
+            http://streamserver.example.com/video123.mp4</video:content_loc>
+        
+        <video:expiration_date>2021-11-05T19:20:30+08:00</video:expiration_date>
+        <video:rating>4.2</video:rating>
+        <video:view_count>12345</video:view_count>
+        <video:family_friendly>yes</video:family_friendly>
+        <video:restriction relationship="allow">IE GB US CA</video:restriction>
+        <video:price currency="EUR">1.99</video:price>
+        <video:requires_subscription>yes</video:requires_subscription>
+        <video:uploader
+            info="http://www.example.com/users/grillymcgrillerson">GrillyMcGrillerson
+        </video:uploader>
+    </url>";
+    */
+
+    } // end for
+    
+    return xml;
+}
+     </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!-- 
+  Clean up and convert Appeals URL list to XML sitemap.
+
+  Based on https://web.dev/read-files/ exa
+  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+-->
+
+<!-- HTML form -->
+
+<h1>Sitemap generator</h1>
+<input type="file" id="choose-file">
+<p id="status"></p>
+<h2>Output</h2>
+<textarea id="output" rows="20" cols="150"></textarea> <!-- https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement -->
+
+
+<!-- Process file -->
+
+<script>
+
+  let emptyFolders = [
+      "https://www.tdi.texas.gov/appeals/appeals - shortcut.lnk",
+      "https://www.tdi.texas.gov/appeals/web.config",
+      "/sig_cases",
+      "https://www.tdi.texas.gov/appeals/export.csv"
+    ]
+
+  // Get file, p & textarea elements
+  const fileInput = document.getElementById('choose-file');
+  const status    = document.getElementById('status');
+  const textarea  = document.getElementById('output'); console.log("textarea: " + textarea )
+
+  // Listen for "Choose File" event
+  fileInput.addEventListener( 'change', (changeEvent) => {
+
+    // Get the file from event.target.files, a FileList object.
+    const file = changeEvent.target.files[0];
+
+    // Verify the file has a type
+    if ( !file.type ) {
+      status.textContent = 'Error: This browser doesn\'t support the File.type property.';
+      return;
+    }
+
+    let output = `<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+    const reader = new FileReader();    // Read file's content
+
+    // Listen for the load event
+    reader.addEventListener('load', loadEvent => {
+    let fileText = loadEvent.target.result;
+      
+      // Remove empty folder names
+      
+      // Loop through array and replace all removing matching lines.
+      emptyFolders.forEach( element => {
+        
+        /*
+          // Put array element in pattern using RegExp constructor.
+          // https://stackoverflow.com/questions/4029109/javascript-regex-how-to-put-a-variable-inside-a-regular-expression
+          let emptyFolder = new RegExp( `${element}\r\n`, 'g');
+          fileText = fileText.replace( emptyFolder, "" );
+        */
+
+          // Remove all instances of the current array element.
+          fileText = fileText.replaceAll( `${element}\r\n`, "" )
+        }
+      )
+
+      // Remove all "1991cases" and "2002cases" lines
+      fileText = fileText.replace( /\/\d\d\d\dcases\r\n/gm, "" )
+      
+      // Remove all lines ending in ".txt"
+      fileText = fileText.replace( /^.+\.txt\r\n/gm, "" )
+
+      // Clean-up
+      fileText = fileText.replace( /&/g, "&amp;");
+      fileText = fileText.replace( / /g, "&#x20;");
+
+      // Convert to XML sitemap
+      
+      /*
+      fileText = fileText.replace(/http/g, "<url><loc>http");
+      fileText = fileText.replace(/pdf/g, "pdf</loc></url>");
+      fileText = fileText.replace(/txt/g, "txt</loc></url>");
+      */
+      let lines = fileText.split(/\r\n/)
+      console.log("lines " + lines.length);
+      
+      // Remove duplicate URLs from the lines array using the Set object
+      // https://www.tutsmake.com/javascript-remove-duplicates-from-array/
+
+      let uniqueLines = [ ...new Set( lines ) ];
+      console.log( "uniqueLines " + uniqueLines.length )
+
+      // Loop through array
+      uniqueLines.forEach( line => {
+          // Foreach line, append to string
+          output += "<url><loc>" + line + "</loc></url>\n";
+        }
+      )
+      output += "</urlset>";
+      //console.log("output: " + output)
+      textarea.value = output;
+    });
+    // Load text
+    reader.readAsText( file );
+
+    // Print fileList object
+    // Each item in the FileList is a File object.
+    console.log( file );
+  });
+</script>

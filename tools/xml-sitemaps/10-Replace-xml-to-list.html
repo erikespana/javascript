@@ -1,0 +1,58 @@
+<!-- 
+  Read files in JavaScript https://web.dev/read-files/
+-->
+
+<!-- Form -->
+
+<h1>Sitemap generator</h1>
+<input type="file" id="choose-file">
+<p id="status"></p>
+<h2>Output</h2>
+<textarea id="output" rows="20" cols="100"></textarea> <!-- https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement -->
+
+
+<!-- Process file -->
+
+<script>
+
+  // Get file, p & textarea elements
+  const fileInput = document.getElementById('choose-file');
+  const status    = document.getElementById('status');
+  const textarea  = document.getElementById('output'); console.log("textarea: " + textarea )
+
+  // Listen for file chooser
+  fileInput.addEventListener( 'change', (changeEvent) => {
+
+    // Get the file from event.target.files, a "FileList" object.
+    const file = changeEvent.target.files[0];
+
+    // Verify the file has a type
+    if ( !file.type ) {
+      status.textContent = 'Error: This browser doesn\'t support the File.type property.';
+      return;
+    }
+
+    // Read file's content
+
+    const reader = new FileReader();
+
+    // Listen for the load event
+    reader.addEventListener('load', loadEvent => {
+      // 
+      let output = loadEvent.target.result;
+      output = output.replace(/<\/loc><\/url>/g, "");
+      
+      //let output = text.replace(/&/g, "&amp;");
+      //let output = output.replace(/ /g, "&#x20;");
+      //let output = output.replace(/http/g, "<url><loc>http");
+      console.log("output: " + output)
+      textarea.value = output;
+    });
+    // Load text
+    reader.readAsText( file );
+
+    // Print fileList object
+    // Each item in the FileList is a File object.
+    console.log( file );
+  });
+</script>

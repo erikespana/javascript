@@ -20,3 +20,11 @@ Javascript plays a central role in web pages. The architecture of the multiple-d
 ## Find minimum and maximum numbers
 
 ## Use random numbers
+
+## Tools
+
+### Convert a URL list to an XML sitemap
+
+
+### Convert XML sitemap to a URL list
+https://erikespana.github.io/javascript/tools/xml-sitemaps/10-Replace-xml-to-list.html

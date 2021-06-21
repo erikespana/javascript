@@ -40,11 +40,17 @@
     reader.addEventListener('load', loadEvent => {
       // 
       let output = loadEvent.target.result;
-      output = output.replace(/<\/loc><\/url>/g, "");
-      
+      output = output.replace(/<url>/g, "");
+      output = output.replace(/<\/url>/g, "");
+      output = output.replace(/<loc>/g, "");
+      output = output.replace(/<\/loc>/g, "");
+      output = output.replace(/<lastmod>\d\d\d\d-\d\d-\d\d<\/lastmod>/g, "");
+      output = output.replace(/ /g, "");
+      output = output.replace(/<\/urlset>/g, "");
+      output = output.replace(/^\n/g, "");
       //let output = text.replace(/&/g, "&amp;");
       //let output = output.replace(/ /g, "&#x20;");
-      //let output = output.replace(/http/g, "<url><loc>http");
+      //
       console.log("output: " + output)
       textarea.value = output;
     });

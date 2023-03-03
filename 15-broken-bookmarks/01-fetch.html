@@ -1,0 +1,42 @@
+<!--
+    Fetch a broken link and examine the response code.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="../../styles.css" rel="stylesheet"/>
+    <style>
+        tr.red td { background-color: #ff0000; color: yellow}
+    </style>
+</head>
+<body>
+    <h1>Fetch a broken link and examine the response code.</h1>
+    <p id="results"></p>
+    <!-- https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement -->
+    
+    <script>
+	function checkLink(url) {
+	  return fetch(url)
+		.then(response => {
+		  if (response.ok) {
+			return true; // link is not broken
+		  } else {
+			return false; // link is broken
+		  }
+		})
+		.catch(() => {
+		  return false; // link is broken
+		});
+	}
+	
+	checkLink('https://www.example.com/')
+	.then(isBroken => {
+		if (isBroken) {
+		  console.log('Link is not broken.');
+		} else {
+		  console.log('Link is broken.');
+		}
+	});
+	</script>
+</body>
+</html>

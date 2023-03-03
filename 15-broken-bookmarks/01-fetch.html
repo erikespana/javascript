@@ -15,27 +15,11 @@
     <!-- https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement -->
     
     <script>
-	function checkLink(url) {
-	  return fetch(url)
-		.then(response => {
-		  if (response.ok) {
-			return true; // link is not broken
-		  } else {
-			return false; // link is broken
-		  }
-		})
-		.catch(() => {
-		  return false; // link is broken
-		});
-	}
-	
-	checkLink('https://www.example.com/')
-	.then(isBroken => {
-		if (isBroken) {
-		  console.log('Link is not broken.');
-		} else {
-		  console.log('Link is broken.');
-		}
+	fetch("https://www.example.com/", {mode: 'cors'})
+	.then(function(response) {
+	  console.log(response); 
+	}).catch(function(error) {  
+	  console.log('Request failed:', error)  
 	});
 	</script>
 </body>

@@ -14,13 +14,15 @@
     <p id="results"></p>
     <!-- https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement -->
     
-    <script>
-	fetch("https://www.example.com/", {mode: 'cors'})
+    fetch( "https://www.example.com/",
+				{mode: 'cors',
+					"headers": { "Access-Control-Allow-Origin": "*"}
+				}
+		)
 	.then(function(response) {
 	  console.log(response); 
 	}).catch(function(error) {  
 	  console.log('Request failed:', error)  
 	});
-	</script>
 </body>
 </html>

@@ -13,7 +13,7 @@
     <h1>Fetch a broken link and examine the response code.</h1>
     <p id="results"></p>
     <!-- https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement -->
-    
+    <script>
     fetch( "https://www.example.com/",
 				{mode: 'cors',
 					"headers": { "Access-Control-Allow-Origin": "https://erikespana.github.io"}
@@ -24,5 +24,6 @@
 	}).catch(function(error) {  
 	  console.log('Request failed:', error)  
 	});
+	</script>
 </body>
 </html>

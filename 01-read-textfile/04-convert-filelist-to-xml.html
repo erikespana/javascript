@@ -1,0 +1,66 @@
+
+<!-- 
+  Clean up and convert Medcases URL list to XML sitemap.
+  https://web.dev/read-files/
+  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+-->
+
+<!-- Form -->
+
+<h1>Sitemap generator</h1>
+<input type="file" id="choose-file">
+<p id="status"></p>
+<h2>Output</h2>
+<textarea id="output" rows="20" cols="150"></textarea> <!-- https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement -->
+
+
+<!-- Process file -->
+
+<script>
+
+  // Get file, p & textarea elements
+  const fileInput = document.getElementById('choose-file');
+  const status    = document.getElementById('status');
+  const textarea  = document.getElementById('output'); console.log("textarea: " + textarea )
+
+  // Listen for file chooser
+  fileInput.addEventListener( 'change', (changeEvent) => {
+
+    // Get the file from event.target.files, a "FileList" object.
+    const file = changeEvent.target.files[0];
+
+    // Verify the file has a type
+    if ( !file.type ) {
+      status.textContent = 'Error: This browser doesn\'t support the File.type property.';
+      return;
+    }
+
+    // Read file's content
+
+    const reader = new FileReader();
+
+    // Listen for the load event
+    reader.addEventListener('load', loadEvent => {
+    let output = loadEvent.target.result;
+
+      // Remove these lines
+      let emptyFolders = ["/january", "/february", "/march", "/april", "/may", "/june", "/july", "/august", "/september", "/october", "/november", "/december"]
+      // Clean-up
+      output = output.replace(/&/g, "&amp;");
+      output = output.replace(/ /g, "&#x20;");
+
+      // Convert to XML sitemap
+      output = output.replace(/http/g, "<url><loc>http");
+      output = output.replace(/pdf/g, "pdf</loc></url>");
+      output = output.replace(/txt/g, "txt</loc></url>");
+      console.log("output: " + output)
+      textarea.value = output;
+    });
+    // Load text
+    reader.readAsText( file );
+
+    // Print fileList object
+    // Each item in the FileList is a File object.
+    console.log( file );
+  });
+</script>

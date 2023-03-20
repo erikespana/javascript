@@ -1,7 +1,7 @@
 ## How to read a text file in javascript line by line
 
 <details>
-<summary>1. Create a file input field.</summary>
+<summary>1. [Create a file input field](https://erikespana.github.io/javascript/01-read-textfiles/01-fileChooser.html)</summary>
 
 ```html
 <input type="file" name="file" id="file">

@@ -1,0 +1,24 @@
+
+<!-- 
+  Read files in JavaScript
+  https://web.dev/read-files/
+-->
+
+<!-- When the user finishes selecting a file, the element's change event is fired. -->
+<input type="file" id="file-selector">
+
+<script>
+  const fileSelector = document.getElementById('file-selector');
+
+  // When the element's change event is fired, do the following.
+  
+  fileSelector.addEventListener('change', (event) => {
+
+    // You can access the list of files from event.target.files, which is a FileList object.
+    const fileList = event.target.files;
+
+    // Print fileList object
+    // Each item in the FileList is a File object.
+    console.log( fileList );
+  });
+</script>

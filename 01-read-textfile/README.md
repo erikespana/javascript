@@ -1,4 +1,7 @@
-## How to read a text file in javascript line by line
+# Reading files in JavaScript
+## Examples of how to select files, read file metadata and content, and monitor read progress.
+https://web.dev/read-files/
+### How to read a text file in javascript line by line
 
 <details>
 <summary>1. [Create a file input field](https://erikespana.github.io/javascript/01-read-textfiles/01-fileChooser.html)</summary>
